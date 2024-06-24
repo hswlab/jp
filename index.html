@@ -1,0 +1,197 @@
+<style>
+
+	body{
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		margin: 0;
+	}
+	
+	#scroll-wrapper{		
+		position: relative;
+		flex-grow: 1;				
+	}
+	
+	#wrapper{		
+		display: flex;
+		flex-grow: 1;		
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+	    	position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	}
+	
+	#navbar {
+		padding: 5px;
+		background-color: #333;
+		text-align: center;
+		z-index:2;
+	}
+	
+	#table {
+		display: flex;
+		border: 1px solid #ccc;
+		background-color: #33333380;
+		box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+		flex-flow: wrap;
+		gap: 5px;
+		justify-content: center;
+		padding: 5px;
+		margin: 15px;
+		flex-grow: 0;
+		align-items: center;
+		overflow: auto;
+	}
+
+	#table .td {
+		padding: 0 5px;
+		border: 1px solid #999;
+		text-align: center;
+		background-color: #333333;
+		font-size: 50px;
+		white-space: nowrap;
+		cursor: hand;
+		border-radius: 5px;
+		display: inline-block;
+		color: #ffffff;
+	}
+
+	#table .td:hover {
+		box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+		font-size: 44px;
+		margin: 3px;
+		background-color: #000000;
+	}
+	
+	#bg-jp {
+		background-color: red;
+		border-radius: 50%;
+		position: absolute;
+		width: 80vmin; /* 50% der kleineren Dimension des Viewports */
+		height: 80vmin; /* 50% der kleineren Dimension des Viewports */
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+</style>
+<div id="navbar">	
+	<select id="jp-select" name="navyOp" onchange="JP.GenerateTable(this.value, false);">
+	  <option selected disabled hidden>bitte auswählen</option>
+	  <optgroup label="Hiragana">
+		  <option value="hiragana">Hiragana (46 Zeichen)</option>
+		  <option value="hiragana_accentuation">Hiragana Betonung (33 Zeichen)</option>
+	  </optgroup>
+	  <optgroup label="Katakana">
+		  <option value="katakana">Katakana (46 Zeichen)</option>
+		  <option value="katakana_accentuation">Katakana Betonung (33 Zeichen)</option>
+	  </optgroup>
+	  <optgroup label="Kanji in der Grundschule (1006 Zeichen)">
+		  <option value="grundschule_klasse_1">1. Klasse (80 Zeichen)</option>
+		  <option value="grundschule_klasse_2">2. Klasse (160 Zeichen)</option>
+		  <option value="grundschule_klasse_3">3. Klasse (200 Zeichen)</option>
+		  <option value="grundschule_klasse_4">4. Klasse (200 Zeichen)</option>
+		  <option value="grundschule_klasse_5">5. Klasse (185 Zeichen)</option>
+		  <option value="grundschule_klasse_6">6. Klasse (181 Zeichen)</option>
+	  </optgroup>
+	  <optgroup label="Kanji in der Mittelstufe (1130 Zeichen)">
+		  <option value="kanji_kentei_stufe_4">Kanji Kentei Stufe 4 (316 Zeichen)</option>
+		  <option value="kanji_kentei_stufe_3">Kanji Kentei Stufe 3 (285 Zeichen)</option>
+		  <option value="kanji_kentei_stufe_2_5">Kanji Kentei Stufe 2.5 (333 Zeichen)</option>
+		  <option value="kanji_kentei_stufe_2">Kanji Kentei Stufe 2 (196 Zeichen)</option>
+	  </optgroup>
+	</select>
+	<button onclick="JP.GenerateTable(document.getElementById('jp-select').value, true);">mischen</button>
+</div>
+<div id="scroll-wrapper">
+	<div id="bg-jp"></div>
+	<div id="wrapper">
+		<div id="table"><h1>歓迎</h1></div>
+	</div>
+</div>
+<script>
+
+	var JP = JP || {};
+
+	// Zeichendatenbank  
+	JP.DB = {
+		hiragana : [{'char': 'あ', 'romanji': 'a'}, {'char': 'い', 'romanji': 'i'}, {'char': 'う', 'romanji': 'u'}, {'char': 'え', 'romanji': 'e'}, {'char': 'お', 'romanji': 'o'}, {'char': 'か', 'romanji': 'ka'}, {'char': 'き', 'romanji': 'ki'}, {'char': 'く', 'romanji': 'ku'}, {'char': 'け', 'romanji': 'ke'}, {'char': 'こ', 'romanji': 'ko'}, {'char': 'さ', 'romanji': 'sa'}, {'char': 'し', 'romanji': 'shi'}, {'char': 'す', 'romanji': 'su'}, {'char': 'せ', 'romanji': 'se'}, {'char': 'そ', 'romanji': 'so'}, {'char': 'た', 'romanji': 'ta'}, {'char': 'ち', 'romanji': 'chi'}, {'char': 'つ', 'romanji': 'tsu'}, {'char': 'て', 'romanji': 'te'}, {'char': 'と', 'romanji': 'to'}, {'char': 'な', 'romanji': 'na'}, {'char': 'に', 'romanji': 'ni'}, {'char': 'ぬ', 'romanji': 'nu'}, {'char': 'ね', 'romanji': 'ne'}, {'char': 'の', 'romanji': 'no'}, {'char': 'は', 'romanji': 'ha'}, {'char': 'ひ', 'romanji': 'hi'}, {'char': 'ふ', 'romanji': 'fu'}, {'char': 'へ', 'romanji': 'he'}, {'char': 'ほ', 'romanji': 'ho'}, {'char': 'ま', 'romanji': 'ma'}, {'char': 'み', 'romanji': 'mi'}, {'char': 'む', 'romanji': 'mu'}, {'char': 'め', 'romanji': 'me'}, {'char': 'も', 'romanji': 'mo'}, {'char': 'や', 'romanji': 'ya'}, {'char': 'ゆ', 'romanji': 'yu'}, {'char': 'よ', 'romanji': 'yo'}, {'char': 'ら', 'romanji': 'ra'}, {'char': 'り', 'romanji': 'ri'}, {'char': 'る', 'romanji': 'ru'}, {'char': 'れ', 'romanji': 're'}, {'char': 'ろ', 'romanji': 'ro'}, {'char': 'わ', 'romanji': 'wa'}, {'char': 'を', 'romanji': 'wo'}, {'char': 'ん', 'romanji': 'n'}],
+		hiragana_accentuation : [{'char': 'きゃ', 'romanji': 'kya'}, {'char': 'きゅ', 'romanji': 'kyu'}, {'char': 'きょ', 'romanji': 'kyo'}, {'char': 'しゃ', 'romanji': 'sha'}, {'char': 'しゅ', 'romanji': 'shu'}, {'char': 'しょ', 'romanji': 'sho'}, {'char': 'ちゃ', 'romanji': 'cha'}, {'char': 'ちゅ', 'romanji': 'chu'}, {'char': 'ちょ', 'romanji': 'cho'}, {'char': 'にゃ', 'romanji': 'nya'}, {'char': 'にゅ', 'romanji': 'nyu'}, {'char': 'にょ', 'romanji': 'nyo'}, {'char': 'ひゃ', 'romanji': 'hya'}, {'char': 'ひゅ', 'romanji': 'hyu'}, {'char': 'ひょ', 'romanji': 'hyo'}, {'char': 'みゃ', 'romanji': 'mya'}, {'char': 'みゅ', 'romanji': 'myu'}, {'char': 'みょ', 'romanji': 'myo'}, {'char': 'りゃ', 'romanji': 'rya'}, {'char': 'りゅ', 'romanji': 'ryu'}, {'char': 'りょ', 'romanji': 'ryo'}, {'char': 'ぎゃ', 'romanji': 'gya'}, {'char': 'ぎゅ', 'romanji': 'gyu'}, {'char': 'ぎょ', 'romanji': 'gyo'}, {'char': 'じゃ', 'romanji': 'ja'}, {'char': 'じゅ', 'romanji': 'ju'}, {'char': 'じょ', 'romanji': 'jo'}, {'char': 'びゃ', 'romanji': 'bya'}, {'char': 'びゅ', 'romanji': 'byu'}, {'char': 'びょ', 'romanji': 'byo'}, {'char': 'ぴゃ', 'romanji': 'pya'}, {'char': 'ぴゅ', 'romanji': 'pyu'}, {'char': 'ぴょ', 'romanji': 'pyo'}],
+
+		katakana : [{'char': 'ア', 'romanji': 'a'}, {'char': 'イ', 'romanji': 'i'}, {'char': 'ウ', 'romanji': 'u'}, {'char': 'エ', 'romanji': 'e'}, {'char': 'オ', 'romanji': 'o'}, {'char': 'カ', 'romanji': 'ka'}, {'char': 'キ', 'romanji': 'ki'}, {'char': 'ク', 'romanji': 'ku'}, {'char': 'ケ', 'romanji': 'ke'}, {'char': 'コ', 'romanji': 'ko'}, {'char': 'サ', 'romanji': 'sa'}, {'char': 'シ', 'romanji': 'shi'}, {'char': 'ス', 'romanji': 'su'}, {'char': 'セ', 'romanji': 'se'}, {'char': 'ソ', 'romanji': 'so'}, {'char': 'タ', 'romanji': 'ta'}, {'char': 'チ', 'romanji': 'chi'}, {'char': 'ツ', 'romanji': 'tsu'}, {'char': 'テ', 'romanji': 'te'}, {'char': 'ト', 'romanji': 'to'}, {'char': 'ナ', 'romanji': 'na'}, {'char': 'ニ', 'romanji': 'ni'}, {'char': 'ヌ', 'romanji': 'nu'}, {'char': 'ネ', 'romanji': 'ne'}, {'char': 'ノ', 'romanji': 'no'}, {'char': 'ハ', 'romanji': 'ha'}, {'char': 'ヒ', 'romanji': 'hi'}, {'char': 'フ', 'romanji': 'fu'}, {'char': 'ヘ', 'romanji': 'he'}, {'char': 'ホ', 'romanji': 'ho'}, {'char': 'マ', 'romanji': 'ma'}, {'char': 'ミ', 'romanji': 'mi'}, {'char': 'ム', 'romanji': 'mu'}, {'char': 'メ', 'romanji': 'me'}, {'char': 'モ', 'romanji': 'mo'}, {'char': 'ヤ', 'romanji': 'ya'}, {'char': 'ユ', 'romanji': 'yu'}, {'char': 'ヨ', 'romanji': 'yo'}, {'char': 'ラ', 'romanji': 'ra'}, {'char': 'リ', 'romanji': 'ri'}, {'char': 'ル', 'romanji': 'ru'}, {'char': 'レ', 'romanji': 're'}, {'char': 'ロ', 'romanji': 'ro'}, {'char': 'ワ', 'romanji': 'wa'}, {'char': 'ヲ', 'romanji': 'wo'}, {'char': 'ン', 'romanji': 'n'}],
+		katakana_accentuation : [{'char': 'キャ', 'romanji': 'kya'}, {'char': 'キュ', 'romanji': 'kyu'}, {'char': 'キョ', 'romanji': 'kyo'}, {'char': 'シャ', 'romanji': 'sha'}, {'char': 'シュ', 'romanji': 'shu'}, {'char': 'ショ', 'romanji': 'sho'}, {'char': 'チャ', 'romanji': 'cha'}, {'char': 'チュ', 'romanji': 'chu'}, {'char': 'チョ', 'romanji': 'cho'}, {'char': 'ニャ', 'romanji': 'nya'}, {'char': 'ニュ', 'romanji': 'nyu'}, {'char': 'ニョ', 'romanji': 'nyo'}, {'char': 'ヒャ', 'romanji': 'hya'}, {'char': 'ヒュ', 'romanji': 'hyu'}, {'char': 'ヒョ', 'romanji': 'hyo'}, {'char': 'ミャ', 'romanji': 'mya'}, {'char': 'ミュ', 'romanji': 'myu'}, {'char': 'ミョ', 'romanji': 'myo'}, {'char': 'リャ', 'romanji': 'rya'}, {'char': 'リュ', 'romanji': 'ryu'}, {'char': 'リョ', 'romanji': 'ryo'}, {'char': 'ギャ', 'romanji': 'gya'}, {'char': 'ギュ', 'romanji': 'gyu'}, {'char': 'ギョ', 'romanji': 'gyo'}, {'char': 'ジャ', 'romanji': 'ja'}, {'char': 'ジュ', 'romanji': 'ju'}, {'char': 'ジョ', 'romanji': 'jo'}, {'char': 'ビャ', 'romanji': 'bya'}, {'char': 'ビュ', 'romanji': 'byu'}, {'char': 'ビョ', 'romanji': 'byo'}, {'char': 'ピャ', 'romanji': 'pya'}, {'char': 'ピュ', 'romanji': 'pyu'}, {'char': 'ピョ', 'romanji': 'pyo'}],		
+
+		grundschule_klasse_1 : [ {'char': '一', 'romanji': 'ichi'},  {'char': '右', 'romanji': 'migi'},  {'char': '雨', 'romanji': 'ame'},  {'char': '円', 'romanji': 'en'},  {'char': '王', 'romanji': 'ou'},  {'char': '音', 'romanji': 'on'},  {'char': '下', 'romanji': 'shita'},  {'char': '火', 'romanji': 'hi'},  {'char': '花', 'romanji': 'hana'},  {'char': '貝', 'romanji': 'kai'},  {'char': '学', 'romanji': 'gaku'},  {'char': '気', 'romanji': 'ki'},  {'char': '九', 'romanji': 'kyuu'},  {'char': '休', 'romanji': 'yasumi'},  {'char': '玉', 'romanji': 'tama'},  {'char': '金', 'romanji': 'kin'},  {'char': '空', 'romanji': 'sora'},  {'char': '月', 'romanji': 'tsuki'},  {'char': '犬', 'romanji': 'inu'},  {'char': '見', 'romanji': 'mi'},  {'char': '五', 'romanji': 'go'},  {'char': '口', 'romanji': 'kuchi'},  {'char': '校', 'romanji': 'kou'},  {'char': '左', 'romanji': 'hidari'},  {'char': '三', 'romanji': 'san'},  {'char': '山', 'romanji': 'yama'},  {'char': '子', 'romanji': 'ko'},  {'char': '四', 'romanji': 'shi'},  {'char': '糸', 'romanji': 'ito'},  {'char': '字', 'romanji': 'ji'},  {'char': '耳', 'romanji': 'mimi'},  {'char': '七', 'romanji': 'nana'},  {'char': '車', 'romanji': 'kuruma'},  {'char': '手', 'romanji': 'te'},  {'char': '十', 'romanji': 'juu'},  {'char': '出', 'romanji': 'de'},  {'char': '女', 'romanji': 'onna'},  {'char': '小', 'romanji': 'chiisai'},  {'char': '上', 'romanji': 'ue'},  {'char': '森', 'romanji': 'mori'},  {'char': '人', 'romanji': 'hito'},  {'char': '水', 'romanji': 'mizu'},  {'char': '正', 'romanji': 'tadashi'},  {'char': '生', 'romanji': 'sei'},  {'char': '青', 'romanji': 'ao'},  {'char': '夕', 'romanji': 'yuu'},  {'char': '石', 'romanji': 'ishi'},  {'char': '赤', 'romanji': 'aka'},  {'char': '千', 'romanji': 'sen'},  {'char': '川', 'romanji': 'kawa'},  {'char': '先', 'romanji': 'saki'},  {'char': '早', 'romanji': 'haya'},  {'char': '草', 'romanji': 'kusa'},  {'char': '足', 'romanji': 'ashi'},  {'char': '村', 'romanji': 'mura'},  {'char': '大', 'romanji': 'dai'},  {'char': '男', 'romanji': 'otoko'},  {'char': '竹', 'romanji': 'take'},  {'char': '中', 'romanji': 'naka'},  {'char': '虫', 'romanji': 'mushi'},  {'char': '町', 'romanji': 'machi'},  {'char': '天', 'romanji': 'ten'},  {'char': '田', 'romanji': 'ta'},  {'char': '土', 'romanji': 'tsuchi'},  {'char': '二', 'romanji': 'ni'},  {'char': '日', 'romanji': 'hi'},  {'char': '入', 'romanji': 'iru'},  {'char': '年', 'romanji': 'nen'},  {'char': '白', 'romanji': 'shiro'},  {'char': '八', 'romanji': 'hachi'},  {'char': '百', 'romanji': 'hyaku'},  {'char': '文', 'romanji': 'bun'},  {'char': '木', 'romanji': 'ki'},  {'char': '本', 'romanji': 'hon'},  {'char': '名', 'romanji': 'na'},  {'char': '目', 'romanji': 'me'},  {'char': '立', 'romanji': 'tatsu'},  {'char': '力', 'romanji': 'chikara'},  {'char': '林', 'romanji': 'hayashi'},  {'char': '六', 'romanji': 'roku'}],
+		grundschule_klasse_2 : [ {'char': '引', 'romanji': 'hiku'}, {'char': '羽', 'romanji': 'hane'}, {'char': '雲', 'romanji': 'kumo'}, {'char': '園', 'romanji': 'en'}, {'char': '遠', 'romanji': 'tooi'}, {'char': '何', 'romanji': 'nani'}, {'char': '科', 'romanji': 'ka'}, {'char': '夏', 'romanji': 'natsu'}, {'char': '家', 'romanji': 'ie'}, {'char': '歌', 'romanji': 'uta'}, {'char': '画', 'romanji': 'e'}, {'char': '回', 'romanji': 'kai'}, {'char': '会', 'romanji': 'kai'}, {'char': '海', 'romanji': 'umi'}, {'char': '絵', 'romanji': 'e'}, {'char': '外', 'romanji': 'soto'}, {'char': '角', 'romanji': 'kaku'}, {'char': '楽', 'romanji': 'raku'}, {'char': '活', 'romanji': 'katsu'}, {'char': '間', 'romanji': 'aida'}, {'char': '丸', 'romanji': 'maru'}, {'char': '岩', 'romanji': 'iwa'}, {'char': '顔', 'romanji': 'kao'}, {'char': '汽', 'romanji': 'ki'}, {'char': '記', 'romanji': 'ki'}, {'char': '帰', 'romanji': 'kaeru'}, {'char': '弓', 'romanji': 'yumi'}, {'char': '牛', 'romanji': 'ushi'}, {'char': '魚', 'romanji': 'sakana'}, {'char': '京', 'romanji': 'kyou'}, {'char': '強', 'romanji': 'tsuyoi'}, {'char': '教', 'romanji': 'kyou'}, {'char': '近', 'romanji': 'chikai'}, {'char': '兄', 'romanji': 'ani'}, {'char': '形', 'romanji': 'katachi'}, {'char': '計', 'romanji': 'kei'}, {'char': '元', 'romanji': 'moto'}, {'char': '言', 'romanji': 'iu'}, {'char': '原', 'romanji': 'hara'}, {'char': '戸', 'romanji': 'to'}, {'char': '古', 'romanji': 'furui'}, {'char': '午', 'romanji': 'go'}, {'char': '後', 'romanji': 'ato'}, {'char': '語', 'romanji': 'go'}, {'char': '工', 'romanji': 'kou'}, {'char': '公', 'romanji': 'kou'}, {'char': '広', 'romanji': 'hiroi'}, {'char': '交', 'romanji': 'kou'}, {'char': '光', 'romanji': 'hikari'}, {'char': '考', 'romanji': 'kou'}, {'char': '行', 'romanji': 'iku'}, {'char': '高', 'romanji': 'takai'}, {'char': '黄', 'romanji': 'ki'}, {'char': '合', 'romanji': 'au'}, {'char': '谷', 'romanji': 'tani'}, {'char': '国', 'romanji': 'kuni'}, {'char': '黒', 'romanji': 'kuro'}, {'char': '今', 'romanji': 'ima'}, {'char': '才', 'romanji': 'sai'}, {'char': '細', 'romanji': 'hosoi'}, {'char': '作', 'romanji': 'tsukuru'}, {'char': '算', 'romanji': 'san'}, {'char': '止', 'romanji': 'tomeru'}, {'char': '市', 'romanji': 'ichi'}, {'char': '矢', 'romanji': 'ya'}, {'char': '姉', 'romanji': 'ane'}, {'char': '思', 'romanji': 'omou'}, {'char': '紙', 'romanji': 'kami'}, {'char': '寺', 'romanji': 'tera'}, {'char': '自', 'romanji': 'jibun'}, {'char': '時', 'romanji': 'toki'}, {'char': '室', 'romanji': 'muro'}, {'char': '社', 'romanji': 'sha'}, {'char': '弱', 'romanji': 'yowai'}, {'char': '首', 'romanji': 'kubi'}, {'char': '秋', 'romanji': 'aki'}, {'char': '週', 'romanji': 'shuu'}, {'char': '春', 'romanji': 'haru'}, {'char': '書', 'romanji': 'kaku'}, {'char': '少', 'romanji': 'sukunai'}, {'char': '場', 'romanji': 'ba'}, {'char': '色', 'romanji': 'iro'}, {'char': '食', 'romanji': 'taberu'}, {'char': '心', 'romanji': 'kokoro'}, {'char': '新', 'romanji': 'atarashii'}, {'char': '親', 'romanji': 'oya'}, {'char': '図', 'romanji': 'zu'}, {'char': '数', 'romanji': 'kazu'}, {'char': '西', 'romanji': 'nishi'}, {'char': '声', 'romanji': 'koe'}, {'char': '星', 'romanji': 'hoshi'}, {'char': '晴', 'romanji': 'hare'}, {'char': '切', 'romanji': 'kiru'}, {'char': '雪', 'romanji': 'yuki'}, {'char': '船', 'romanji': 'fune'}, {'char': '線', 'romanji': 'sen'}, {'char': '前', 'romanji': 'mae'}, {'char': '組', 'romanji': 'kumi'}, {'char': '走', 'romanji': 'hashiru'}, {'char': '多', 'romanji': 'ooi'}, {'char': '太', 'romanji': 'futoi'}, {'char': '体', 'romanji': 'karada'}, {'char': '台', 'romanji': 'dai'}, {'char': '地', 'romanji': 'chi'}, {'char': '池', 'romanji': 'ike'}, {'char': '知', 'romanji': 'shiru'}, {'char': '茶', 'romanji': 'cha'}, {'char': '昼', 'romanji': 'hiru'}, {'char': '長', 'romanji': 'nagai'}, {'char': '鳥', 'romanji': 'tori'}, {'char': '朝', 'romanji': 'asa'}, {'char': '直', 'romanji': 'choku'}, {'char': '通', 'romanji': 'tooru'}, {'char': '弟', 'romanji': 'otouto'}, {'char': '店', 'romanji': 'mise'}, {'char': '点', 'romanji': 'ten'}, {'char': '電', 'romanji': 'den'}, {'char': '刀', 'romanji': 'katana'}, {'char': '冬', 'romanji': 'fuyu'}, {'char': '当', 'romanji': 'tou'}, {'char': '東', 'romanji': 'higashi'}, {'char': '答', 'romanji': 'kotae'}, {'char': '頭', 'romanji': 'atama'}, {'char': '同', 'romanji': 'onaji'}, {'char': '道', 'romanji': 'michi'}, {'char': '読', 'romanji': 'yomu'}, {'char': '内', 'romanji': 'uchi'}, {'char': '南', 'romanji': 'minami'}, {'char': '肉', 'romanji': 'niku'}, {'char': '馬', 'romanji': 'uma'}, {'char': '売', 'romanji': 'uru'}, {'char': '買', 'romanji': 'kau'}, {'char': '麦', 'romanji': 'mugi'}, {'char': '半', 'romanji': 'han'}, {'char': '番', 'romanji': 'ban'}, {'char': '父', 'romanji': 'chichi'}, {'char': '風', 'romanji': 'kaze'}, {'char': '分', 'romanji': 'bun'}, {'char': '聞', 'romanji': 'kiku'}, {'char': '米', 'romanji': 'kome'}, {'char': '歩', 'romanji': 'aruku'}, {'char': '母', 'romanji': 'haha'}, {'char': '方', 'romanji': 'hou'}, {'char': '北', 'romanji': 'kita'}, {'char': '毎', 'romanji': 'mai'}, {'char': '妹', 'romanji': 'imouto'}, {'char': '万', 'romanji': 'man'}, {'char': '明', 'romanji': 'akarui'}, {'char': '鳴', 'romanji': 'naku'}, {'char': '毛', 'romanji': 'ke'}, {'char': '門', 'romanji': 'mon'}, {'char': '夜', 'romanji': 'yoru'}, {'char': '野', 'romanji': 'no'}, {'char': '友', 'romanji': 'tomo'}, {'char': '用', 'romanji': 'you'}, {'char': '曜', 'romanji': 'youbi'}, {'char': '来', 'romanji': 'kuru'}, {'char': '里', 'romanji': 'sato'}, {'char': '理', 'romanji': 'ri'}, {'char': '話', 'romanji': 'hanashi'}],
+		grundschule_klasse_3 : [{'char': 'grundschule_klasse_3', 'romanji': 'x'}],
+		grundschule_klasse_4 : [{'char': 'grundschule_klasse_4', 'romanji': 'x'}],
+		grundschule_klasse_5 : [{'char': 'grundschule_klasse_5', 'romanji': 'x'}],
+		grundschule_klasse_6 : [{'char': 'grundschule_klasse_6', 'romanji': 'x'}],
+		
+		kanji_kentei_stufe_4 : [{'char': 'kanji_kentei_stufe_4', 'romanji': 'x'}],
+		kanji_kentei_stufe_3 : [{'char': 'kanji_kentei_stufe_3', 'romanji': 'x'}],
+		kanji_kentei_stufe_2_5 : [{'char': 'kanji_kentei_stufe_2.5', 'romanji': 'x'}],
+		kanji_kentei_stufe_2 : [{'char': 'kanji_kentei_stufe_2', 'romanji': 'x'}]
+	};
+
+	// Generiert die Zeichentabelle
+	JP.GenerateTable = function (scriptType, shuffle) {
+
+		
+		// Wählen Sie das Skript basierend auf dem Parameter scriptType
+		<!-- let scriptType = $this.value; -->
+		let script = JP.DB[scriptType];	
+
+	 
+		// Mischen Sie das Array
+		if(shuffle === true){
+			script.sort(() => Math.random() - 0.5);
+		}
+	 
+		// Erstellen Sie die Tabelle		
+		let n = script.length;
+		let table = '';
+		for(let i = 0; i < n; i++) {
+			table += '<div class="td" title="'+script[i].romanji+'" onclick="JP.HandleTdClick(event);">' + script[i].char + '</div>';
+		}
+		<!-- let reihen = Math.ceil(Math.sqrt(n)); -->
+		<!-- let spalten = Math.ceil(n / reihen); -->
+		<!-- let table = '<table>'; -->
+		<!-- for(let i = 0; i < reihen; i++) { -->
+			<!-- table += '<tr>'; -->
+			<!-- for(let j = 0; j < spalten; j++) { -->
+				<!-- let index = i * spalten + j; -->
+				<!-- if(index < n) { -->
+					<!-- table += '<td class="td" title="'+script[index].romanji+'" onclick="JP.HandleTdClick(event);">' + script[index].char + '</td>'; -->
+				<!-- } else { -->
+					<!-- table += '<td></td>'; -->
+				<!-- } -->
+			<!-- } -->
+			<!-- table += '</tr>'; -->
+		<!-- } -->
+		<!-- table += '</table>'; -->
+		
+
+		// Finden Sie das div-Element mit der id "table" und fügen Sie die Tabelle ein
+		document.getElementById('table').innerHTML = table;
+	};
+
+	// Clickevent
+	JP.HandleTdClick = function (event) {
+    const td = event.target;
+    const rect = td.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const halfWidth = rect.width / 2;
+
+    if (clickX < halfWidth) {
+        // Klick auf die linke Hälfte
+        td.style.background = 'red';
+    } else {
+        // Klick auf die rechte Hälfte
+        td.style.background = '#32cd3299';//'limegreen';
+    }
+};
+</script>
