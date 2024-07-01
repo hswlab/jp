@@ -10,7 +10,7 @@ klick on the lower left or right corner to reset the solved status.
  The description for the kanji is only translated in English and German.
 ![image](https://github.com/hswlab/jp/assets/12501993/5c1c8ab9-4be2-4a52-8ca1-6457d2e403bc)
 
-Answerde Kanji will be colored in red (wrong) or green (correct)
+Answered Kanji will be colored in red (wrong) or green (correct)
 ![image](https://github.com/hswlab/jp/assets/12501993/e6376441-f65e-44fd-b076-9fccceb9156e)
 
 You can repeat wrong answers by clicking on "wrong answers" dropdown option
