@@ -1,6 +1,5 @@
-# jp
-Japanese card index box for learning katakana, hiragana and kanji.
-https://hswlab.github.io/jp
+# jp trainer
+A very simple Japanese card index box for learning katakana, hiragana and kanji. You can use it on desktop and also on mobile devicses. You need to download the index.html if you need to use it offline, or just visit this website: https://hswlab.github.io/jp
 
 click on a kanji to open the answer
 ![image](https://github.com/hswlab/jp/assets/12501993/6ed6f557-a188-4c3f-8f35-54accba44beb)
