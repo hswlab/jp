@@ -176,7 +176,7 @@
             }
 
             .translate-top-left {
-                border-radius: 50%;
+                border-radius: 0%;
                 translate: -50% -50%;
                 transform: rotate(45deg);
                 width: 200px;
@@ -185,7 +185,7 @@
             }
 
             .translate-top-right {
-                border-radius: 50%;
+                border-radius: 0%;
                 translate: 50% -50%;
                 transform: rotate(45deg);
                 width: 200px;
@@ -195,7 +195,7 @@
             }
 
             .translate-bottom-right {
-                border-radius: 50%;
+                border-radius: 0%;
                 translate: 50% 50%;
                 transform: rotate(45deg);
                 width: 200px;
@@ -206,7 +206,7 @@
             }
 
             .translate-bottom-left {
-                border-radius: 50%;
+                border-radius: 0%;
                 translate: -50% 50%;
                 transform: rotate(45deg);
                 width: 200px;
@@ -389,7 +389,7 @@
 		JP.HandleSuccessClick = function ($event, $this) {
 			$event.preventDefault();
 			const td = $this.closest(".td");//event.target;
-			const rect = td.getBoundingClientRect();
+            const rect = td.getElementsByClassName("desc")[0].getBoundingClientRect();
 			const clickX = event.clientX - rect.left;
 			const clickY = event.clientY - rect.top;
 			const halfWidth = rect.width / 2;
