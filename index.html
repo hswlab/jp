@@ -20,7 +20,7 @@
             input, select, button {
                 font-size: 25px;
                 background: linear-gradient(180deg, #ffffff99 0%, #99999999 100%);
-                border: 1px solid #999;
+                border: 1px solid #333;
                 color: darkslategray;
                 cursor: pointer;
                 border-radius: 5px;
@@ -28,8 +28,14 @@
                 white-space: nowrap;
                 text-align: left;
                 height: 60px;
-                background-color: darkgray;
+                background-color: slategray;
+
             }
+
+                input:hover, select:hover, button:hover {
+                    border: 1px solid #666;
+                    background: linear-gradient(45deg, #ffffff99 0%, #99999999 100%);
+                }
 			
 			input:focus, select:focus, button:focus{
 				outline: none;
