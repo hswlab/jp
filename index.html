@@ -16,32 +16,35 @@
 				font-family: sans-serif;	
 				background: linear-gradient(180deg, #fff 0%, #ccc 100%);			    
 			}
-			
-			input, select, button {
-				font-size: 25px;
-				background: linear-gradient(180deg, #ffffff99 0%, #99999999 100%);
-				border: 1px solid #999;
-				color: darkslategray;
-				cursor: pointer;
-				border-radius: 5px;
-				flex: 3;
-				white-space: nowrap;
-				text-align:left;
-				height:50px;
-			}
+
+            input, select, button {
+                font-size: 25px;
+                background: linear-gradient(180deg, #ffffff99 0%, #99999999 100%);
+                border: 1px solid #999;
+                color: darkslategray;
+                cursor: pointer;
+                border-radius: 5px;
+                flex: 3;
+                white-space: nowrap;
+                text-align: left;
+                height: 60px;
+                background-color: darkgray;
+            }
 			
 			input:focus, select:focus, button:focus{
 				outline: none;
 			}
-			
-			button{
-				flex:1;
-			}
-			
-			input{
-				background:#ffffff99;
-				color: grey;
-			}
+
+            button {
+                flex: 1;
+                background-color: tomato;
+            }
+
+            input {
+                background: #ffffff99;
+                color: grey;
+                height: inherit;
+            }
 			
 			#scroll-wrapper{		
 				position: relative;
@@ -271,8 +274,8 @@
 			  <option value="kanji_kentei_stufe_4">4th kentei grade (316 Kanji)</option>
 		  </optgroup>
 		</select>
-		<button onclick="JP.GenerateTable(document.getElementById('jp-select').value, true);">shuffle / update</button>
 		<input type="text" placeholder="filter" onkeyup="JP.FilterTable(this);" />		
+		<button onclick="JP.GenerateTable(document.getElementById('jp-select').value, true);">shuffle / update</button>
 	</div>
 	
 	<!-- content -->
