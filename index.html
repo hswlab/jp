@@ -245,29 +245,29 @@
 		<select id="jp-select" name="navyOp" onchange="JP.GenerateTable(this.value, false);">
 		  <option selected disabled hidden>please select character table</option>
 		  <optgroup label="Repetition">
-			  <option value="failed">incorrectly answered characters</option>			  
+			  <option value="failed">wrong answers</option>			  
 		  </optgroup>
 		  <optgroup label="Hiragana">
-			  <option value="hiragana">Hiragana (46 characters)</option>
-			  <option value="hiragana_accentuation">Hiragana Betonung (33 characters)</option>
+			  <option value="hiragana">Hiragana (46)</option>
+			  <option value="hiragana_accentuation">Hiragana accentuation (33)</option>
 		  </optgroup>
 		  <optgroup label="Katakana">
-			  <option value="katakana">Katakana (46 characters)</option>
-			  <option value="katakana_accentuation">Katakana Betonung (33 characters)</option>
+			  <option value="katakana">Katakana (46)</option>
+			  <option value="katakana_accentuation">Katakana accentuation (33)</option>
 		  </optgroup>
-		  <optgroup label="Kanji in elementary school (1006 characters)">
-			  <option value="grundschule_klasse_1">1th grade (80 characters)</option>
-			  <option value="grundschule_klasse_2">2th grade (160 characters)</option>
-			  <option value="grundschule_klasse_3">3th grade (200 characters)</option>
-			  <option value="grundschule_klasse_4">4th grade (200 characters)</option>
-			  <option value="grundschule_klasse_5">5th grade (185 characters)</option>
-			  <option value="grundschule_klasse_6">6th grade (181 characters)</option>
+		  <optgroup label="elementary school (1006 Kanji)">
+			  <option value="grundschule_klasse_1">1th grade (80 Kanji)</option>
+			  <option value="grundschule_klasse_2">2th grade (160 Kanji)</option>
+			  <option value="grundschule_klasse_3">3th grade (200 Kanji)</option>
+			  <option value="grundschule_klasse_4">4th grade (200 Kanji)</option>
+			  <option value="grundschule_klasse_5">5th grade (185 Kanji)</option>
+			  <option value="grundschule_klasse_6">6th grade (181 Kanji)</option>
 		  </optgroup>
-		  <optgroup label="Kanji at intermediate level (1130 characters)">
-			  <option value="kanji_kentei_stufe_2">Kanji Kentei Grade 2 (196 characters)</option>
-			  <option value="kanji_kentei_stufe_2_5">Kanji Kentei Grade 2.5 (333 characters)</option>
-			  <option value="kanji_kentei_stufe_3">Kanji Kentei Grade 3 (285 characters)</option>
-			  <option value="kanji_kentei_stufe_4">Kanji Kentei Grade 4 (316 characters)</option>
+		  <optgroup label="intermediate level (1130 Kanji)">
+			  <option value="kanji_kentei_stufe_2">2th kentei grade (196 Kanji)</option>
+			  <option value="kanji_kentei_stufe_2_5">2.5th kentei grade (333 Kanji)</option>
+			  <option value="kanji_kentei_stufe_3">3th kentei grade (285 Kanji)</option>
+			  <option value="kanji_kentei_stufe_4">4th kentei grade (316 Kanji)</option>
 		  </optgroup>
 		</select>
 		<button onclick="JP.GenerateTable(document.getElementById('jp-select').value, true);">shuffle / update</button>
