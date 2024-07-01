@@ -15,4 +15,4 @@ Answerde Kanji will be colored in red (wrong) or green (correct)
 You can repeat wrong answers by clicking on "wrong answers" dropdown option
 ![image](https://github.com/hswlab/jp/assets/12501993/add8749f-d287-4334-8d99-f4379cfb2c62)
 
-There are no cookies used yet, just simple js, css and html. Maybe I will also implement an option to store a custom list in cookies, so you are able to load your own list, after reopening the browser window. Currently the description for the kanji is translated in English and German.
+There are no cookies used yet, just simple js, css and html. Maybe I will also implement an option to store a custom list in cookies, so you are able to load your own list, after reopening the browser window. The description for the kanji is only translated in English and German.
