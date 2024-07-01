@@ -7,6 +7,7 @@ click on a kanji to open the answer
 klick on the upper right corner to mark it as solved correctly,
 klick on the upper left corner to mark it as solved incorrectly,
 klick on the lower left or right corner to reset the solved status.
+ The description for the kanji is only translated in English and German.
 ![image](https://github.com/hswlab/jp/assets/12501993/5c1c8ab9-4be2-4a52-8ca1-6457d2e403bc)
 
 Answerde Kanji will be colored in red (wrong) or green (correct)
@@ -15,4 +16,4 @@ Answerde Kanji will be colored in red (wrong) or green (correct)
 You can repeat wrong answers by clicking on "wrong answers" dropdown option
 ![image](https://github.com/hswlab/jp/assets/12501993/add8749f-d287-4334-8d99-f4379cfb2c62)
 
-There are no cookies used yet, just simple js, css and html. Maybe I will also implement an option to store a custom list in cookies, so you are able to load your own list, after reopening the browser window. The description for the kanji is only translated in English and German.
+There are no cookies used yet, just simple js, css and html. Maybe I will also implement an option to store a custom list in cookies, so you are able to load your own list, after reopening the browser window.
