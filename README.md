@@ -5,7 +5,8 @@ click on a kanji to open the answer
 ![image](https://github.com/hswlab/jp/assets/12501993/6ed6f557-a188-4c3f-8f35-54accba44beb)
 
 klick on the upper right corner to mark it as solved correctly,
-klick on the upper left corner to mark it as solved incorrectly
+klick on the upper left corner to mark it as solved incorrectly,
+klick on the lower left or right corner to reset the solved status.
 ![image](https://github.com/hswlab/jp/assets/12501993/5c1c8ab9-4be2-4a52-8ca1-6457d2e403bc)
 
 Answerde Kanji will be colored in red (wrong) or green (correct)
