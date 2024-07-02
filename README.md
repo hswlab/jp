@@ -8,6 +8,12 @@ A very simple Japanese card index box for learning katakana, hiragana and kanji.
 [![GitHub release (with filter)](https://img.shields.io/github/downloads/hswlab/jp/total?style=for-the-badge&label=download%20jp
 )](https://github.com/hswlab/jp/releases/latest)
 
+# Cookies / Local Storage:
+The online version is using a Cookie to store a list of incorrect Kanj, that yo can load after reopening the browser window.
+If you want to use the file locally, you need to change the configuration from cookie to local storage. Open the file in text editor and change localMode to true:
+![image](https://github.com/hswlab/jp/assets/12501993/91a2881c-3075-4451-a3a5-01023bbce989)
+
+
 # How to use it:
 Select a library, you want to learn and click on a kanji to reveal the answer. 
 Answered Kanji will be colored in red (wrong) or green (correct). Klick on the shuffle Button to shuffle the Kanji and reset the colors.
