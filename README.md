@@ -1,19 +1,22 @@
-# jp trainer
-A very simple Japanese card index box for learning katakana, hiragana and kanji. You can use it on desktop and also on mobile devicses. You need to download the index.html if you need to use it offline, or just visit this website: https://hswlab.github.io/jp
+# Japanese Hiragana Katakana and Kanji Trainer
+A very simple Japanese card index box for learning katakana, hiragana and kanji. You can use it on desktop and also on mobile devicses. You need to download the index.html if you want to use it offline, or just visit this website: https://hswlab.github.io/jp
 
-click on a kanji to open the answer
-![image](https://github.com/hswlab/jp/assets/12501993/6ed6f557-a188-4c3f-8f35-54accba44beb)
+# How to use it:
+Select a library, you want to learn and click on a kanji to reveal the answer. 
+Answered Kanji will be colored in red (wrong) or green (correct). Klick on the shuffle Button to shuffle the Kanji and reset the colors.
+![image](https://github.com/hswlab/jp/assets/12501993/64ab6db9-efe3-4ff1-bbbe-ec2ccafef9d8)
 
-klick on the upper right corner to mark it as solved correctly,
-klick on the upper left corner to mark it as solved incorrectly,
-klick on the lower left or right corner to reset the solved status.
- The description for the kanji is only translated in English and German.
-![image](https://github.com/hswlab/jp/assets/12501993/5c1c8ab9-4be2-4a52-8ca1-6457d2e403bc)
+The description for the kanji is only translated in English and German. 
+Klick on the upper left corner to mark it as solved incorrectly and store it in the training list for later training.
+Klick on the upper right corner to mark it as solved correctly.
+Klick on the bottom right corner to mark it as solved correctly and remove from training list.
+Klick on the bottom left corner to reset the solved status.
+![image](https://github.com/hswlab/jp/assets/12501993/d7efa908-85e6-464c-b7fe-41e5ec54b68d)
 
-Answered Kanji will be colored in red (wrong) or green (correct)
-![image](https://github.com/hswlab/jp/assets/12501993/e6376441-f65e-44fd-b076-9fccceb9156e)
 
-You can repeat wrong answers by clicking on "wrong answers" dropdown option
-![image](https://github.com/hswlab/jp/assets/12501993/add8749f-d287-4334-8d99-f4379cfb2c62)
+If "persist training list" is checked the training list wil be stored in Cookies, so you can load your wrong answered kanji and learn them at a later time.
+You can find the wrong answered kanji by clicking on "training" dropdown option.
+![image](https://github.com/hswlab/jp/assets/12501993/103b4f8b-ff82-44a4-aa57-0344d357f1ab)
 
-There are no cookies used yet, just simple js, css and html. Maybe I will also implement an option to store a custom list in cookies, so you are able to load your own list, after reopening the browser window.
+There is also a filter you can use to search for a kanji by Romanji, German or English text.
+![image](https://github.com/hswlab/jp/assets/12501993/9b587b02-12b3-4334-9d06-f8a6bd3ad189)
