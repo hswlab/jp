@@ -155,6 +155,13 @@
                 overflow: auto;
             }
 
+                #table .td .desc .kanji {
+                    border: 2px solid #000;
+                    border-radius: 25%;
+                    margin: 0;
+                    padding: 0;
+                }
+
             #table .td .desc-click-area {
                 position: absolute;
                 left: 0;
@@ -420,7 +427,8 @@
 							+	  			'<div class="desc-click-correct desc-click-single translate-bottom-right" title="mark as correct and remove from training list">✔⩁</div>'
 							+			'</div>'
 							+			'<div>'
-							+				'<div><b>'+script[i].romanji+'</b></div>'
+							+				'<h1><b class="kanji">'+sign+'</b></h1>'
+							+				'<div><i>'+script[i].romanji+'</i></div>'
 							+				'<div><b>en:</b> '+script[i].en+'</div>'
 							+				'<div><b>de:</b> '+script[i].de+'</div>'
 							+			'</div>'
