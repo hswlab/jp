@@ -1,5 +1,12 @@
 # Japanese Hiragana Katakana and Kanji Trainer
+[![GitHub](https://img.shields.io/github/license/hswlab/jp)](https://github.com/hswlab/jp/blob/main/LICENSE) 
+![GitHub issues](https://img.shields.io/github/issues/hswlab/jp)
+[![Downloads](https://img.shields.io/github/v/release/hswlab/jp)](https://github.com/hswlab/jp/releases/latest) 
 A very simple Japanese card index box for learning katakana, hiragana and kanji. You can use it on desktop and also on mobile devicses. You need to download the index.html if you want to use it offline, or just visit this website: https://hswlab.github.io/jp
+
+
+[![GitHub release (with filter)](https://img.shields.io/github/downloads/hswlab/jp/total?style=for-the-badge&label=download%20jp
+)](https://github.com/hswlab/jp/releases/latest)
 
 # How to use it:
 Select a library, you want to learn and click on a kanji to reveal the answer. 
